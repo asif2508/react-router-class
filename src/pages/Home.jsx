@@ -12,7 +12,8 @@ const Home = () => {
   console.log(data);
   return (
     <div className="max-w-[1240px] mx-auto my-[100px]">
-      <div className="grid grid-cols-4 gap-4">
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {data.map((item) => {
           return (
             <Link to={`/product-details/${item.id}`} key={item.id}>
