@@ -1,34 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { CartContext } from "../App";
 
 const Home = () => {
   const [data, setData] = useState([]);
-
+  const { cart, setCart } = useContext(CartContext);
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
       .then((result) => setData(result));
   }, []);
-  console.log(data);
+
+  const addToCart = (item) => {
+    setCart([...cart, item]);
+  };
+
+  console.log("cart", cart)
+
   return (
     <div className="max-w-[1240px] mx-auto my-[100px]">
-
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         {data.map((item) => {
           return (
-            <Link to={`/product-details/${item.id}`} key={item.id}>
-              <div className="w-[300px] h-[300px] border-[1px] border-gray-300 flex flex-col justify-center items-center p-4 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt="product image"
-                  className="h-[200px] w-[200px]"
-                />
-                <div>
-                  <h3 className="font-semibold">{item?.title}</h3>
-                  <h1 className="text-[24px] font-bold">${item?.price}</h1>
-                </div>
+            // <Link to={`/product-details/${item.id}`} key={item.id}>
+            <div  key={item.id} className="w-[300px] h-[370px] border-[1px] border-gray-300 flex flex-col justify-center items-center p-4 overflow-hidden">
+              <img
+                src={item.image}
+                alt="product image"
+                className="h-[200px] w-[200px]"
+              />
+              <div>
+                <h3 className="font-semibold">{item?.title}</h3>
+                <h1 className="text-[24px] font-bold">${item?.price}</h1>
+                <button
+                  onClick={() => addToCart(item)}
+                  className="bg-blue-600 text-white p-2"
+                >
+                  Add to cart
+                </button>
               </div>
-            </Link>
+            </div>
+            // </Link>
           );
         })}
       </div>
