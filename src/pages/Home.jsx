@@ -11,7 +11,7 @@ const Home = () => {
   }, []);
 
   const addToCart = (item) => {
-    setCart([...cart, item]);
+    setCart([...cart, {...item, count: 1}]);
   };
 
   console.log("cart", cart)
